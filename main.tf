@@ -81,3 +81,4 @@ variable vm_count {
 # Outputs
 output "ssh_key_id" {
   value = "${ibm_compute_ssh_key.ssh_key.id}"
+}
