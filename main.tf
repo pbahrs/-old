@@ -37,11 +37,42 @@ resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   private_vlan_id  = "${ibm_network_vlan.single_scaled_VLAN1.id}"
   block_storage_ids = ["${ibm_storage_block.bockStorage1.id}"]
   network_speed     = 10 
-  ssh_key_ids    = ["${ibm_compute_ssh_key.test_key_1.id}"]
+  ssh_key_ids    = ["${ibm_compute_ssh_key.single_scaled_key.id}"]
   hourly_billing = true
   cores          = "1"
   memory         = "1024"
   disks          = ["25"]
   local_disk     = false
   private_network_only = true
+}
+
+##############################################################################
+# Variables
+##############################################################################
+variable bxapikey {
+  description = "Your Bluemix API Key."
+}
+variable slusername {
+  description = "Your Softlayer username."
+}
+variable slapikey {
+  description = "Your Softlayer API Key."
+}
+variable datacenter {
+  description = "The datacenter to create resources in."
+}
+variable public_key {
+  description = "Your public SSH key material."
+}
+variable key_label {
+  description = "A label for the SSH key that gets created."
+}
+variable key_note {
+  description = "A note for the SSH key that gets created."
+}
+variable datacenter {
+  description = "The target data center."
+}
+variable vm_count {
+  description = "The number of VM instances to provision."
 }
