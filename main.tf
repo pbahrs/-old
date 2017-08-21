@@ -8,12 +8,12 @@ resource "ibm_compute_ssh_key" "single_scaled_key" {
   public_key = "${var.public_key}"
 }
 
-# Create a private VLAN
+# Declare an existing private VLAN
 resource "ibm_network_vlan" "single_scaled_VLAN1" {
-   name = "singel_scaled_private_vlan"
-   datacenter = "${var.datacenter}" 
-   type = "PRIVATE"
-   subnet_size = 8
+}
+
+# Import the VLAN configuration
+terraform import ibm_network_vlan.single_scaled_VLAN1 582446 {
 }
 
 # Create file storage
@@ -78,7 +78,3 @@ variable vm_count {
   description = "The number of VM instances to provision."
 }
 
-# Outputs
-output "ssh_key_id" {
-  value = "${ibm_compute_ssh_key.single_scaled_key.id}"
-}
