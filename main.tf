@@ -19,7 +19,7 @@ resource "ibm_network_vlan" "single_scaled_VLAN1" {
 # Create file storage
 resource "ibm_storage_file" "fs_single_scaled" {
         type = "Performance"
-        datacenter = datacenter
+        datacenter = "${var.datacenter}"
         capacity = 20
         iops = 100
 }
