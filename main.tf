@@ -2,7 +2,7 @@
 provider "ibm" {  
 }
 # Create an SSH key.  
-resource "ibm_compute_ssh_key" "single_scaled_key" {
+resource "ibm_compute_ssh_key" "single_scaled_ssh_key" {
   label = "${var.key_label}"
   notes = "${var.key_note}"
   public_key = "${var.public_key}"
@@ -79,7 +79,7 @@ variable vm_count {
   description = "The number of VM instances to provision."
 }
 
-Outputs
-#output "ssh_key_id" {
-  value = "${ibm_compute_ssh_key.single_scaled_key.id}"
+#Outputs
+output "ssh_key_id" {
+  value = "${ibm_compute_ssh_key.single_scaled_ssh_key.id}"
 }
