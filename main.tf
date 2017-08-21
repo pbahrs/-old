@@ -1,6 +1,5 @@
 # Set privider to ibm cloud
-provider "ibm" {
-   
+provider "ibm" {  
 }
 
 # Create an SSH key. The SSH key surfaces in the SoftLayer console under Devices > Manage > SSH Keys.
@@ -18,9 +17,18 @@ resource "ibm_network_vlan" "single_scaled_VLAN1" {
    type = "PRIVATE"
    subnet_size = 8
 }
+# Create file storage
+
+resource "ibm_storage_file" "fs_single_scaled" {
+        type = "Performance"
+        datacenter = datacenter
+        capacity = 20
+        iops = 100
+}
 
 #Create block storage
-resource "ibm_storage_block" "bockStorage1" {
+
+resource "ibm_storage_block" "bs_single_scaled" {
         type = "Performance"
         datacenter = "${var.datacenter}"
         capacity = 20
@@ -29,13 +37,15 @@ resource "ibm_storage_block" "bockStorage1" {
 }
 
 #Create VM
+
 resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   count          = "${var.vm_count}"
   hostname       ="${format("single_scaled-%02d", count.index + 1)}"
   domain         = "ibm.com"
   datacenter     = "${var.datacenter}"
   private_vlan_id  = "${ibm_network_vlan.single_scaled_VLAN1.id}"
-  block_storage_ids = ["${ibm_storage_block.bockStorage1.id}"]
+  block_storage_ids = ["${ibm_storage_block.bs_single_scaled.id}"]
+  file_storage_ids = ["${ibm_storage_file.fs_single_scaled.id}"]
   network_speed     = 10 
   ssh_key_ids    = ["${ibm_compute_ssh_key.single_scaled_key.id}"]
   hourly_billing = true
@@ -46,9 +56,8 @@ resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   private_network_only = true
 }
 
-##############################################################################
-# Variables
-##############################################################################
+# Define variables 
+
 variable bxapikey {
   description = "Your Bluemix API Key."
 }
