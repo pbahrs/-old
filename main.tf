@@ -2,11 +2,11 @@
 provider "ibm" {  
 }
 # Create an SSH key.  
-#resource "ibm_compute_ssh_key" "single_scaled_key" {
-#  label = "${var.key_label}"
-#  notes = "${var.key_note}"
-#  public_key = "${var.public_key}"
-#}
+resource "ibm_compute_ssh_key" "single_scaled_key" {
+  label = "${var.key_label}"
+  notes = "${var.key_note}"
+  public_key = "${var.public_key}"
+}
 
 # Declare an existing private VLAN
 resource "ibm_network_vlan" "single_scaled_VLAN1" {
