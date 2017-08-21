@@ -13,7 +13,7 @@ resource "ibm_network_vlan" "single_scaled_VLAN1" {
 }
 
 # Import the VLAN configuration
-terraform import ibm_network_vlan.single_scaled_VLAN1 582446 {
+terraform import ibm_network_vlan.single_scaled_VLAN1 i-582446 {
 }
 
 # Create file storage
