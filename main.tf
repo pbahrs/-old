@@ -70,9 +70,6 @@ variable key_label {
 variable key_note {
   description = "A note for the SSH key that gets created."
 }
-variable datacenter {
-  description = "The target data center."
-}
 variable vm_count {
   description = "The number of VM instances to provision."
 }
