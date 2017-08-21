@@ -82,3 +82,8 @@ variable key_note {
 variable vm_count {
   description = "The number of VM instances to provision."
 }
+
+# Outputs
+
+output "ssh_key_id" {
+  value = "${ibm_compute_ssh_key.ssh_key.id}"
