@@ -10,15 +10,10 @@ resource "ibm_compute_ssh_key" "single_scaled_ssh_key" {
 
 # Declare an existing private VLAN
 resource "ibm_network_vlan" "single_scaled_VLAN1" {
-   name = "test_vlan"
-   datacenter = "dal06"
-   type = "PUBLIC"
-   subnet_size = 8
-   router_hostname = "fcr01a.dal06"
 }
 
 # Import the VLAN configuration
-terraform import ibm_network_vlan.single_scaled_VLAN1 i-582446 {
+terraform import ibm_network_vlan.single_scaled_VLAN1 582446 {
 }
 
 # Create file storage
