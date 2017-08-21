@@ -40,7 +40,7 @@ resource "ibm_storage_block" "bs_single_scaled" {
 
 #Create VM - connect to VLAN and mount block and file storage
 resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
-  #count          = "${var.vm_count}"
+  count          = "${var.vm_count}"
   hostname       ="${format("single_scaled-%02d", count.index + 1)}"
   domain         = "ibm.com"
   datacenter     = "${var.datacenter}"
