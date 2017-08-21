@@ -39,7 +39,8 @@ resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   hostname       ="${format("single_scaled-%02d", count.index + 1)}"
   domain         = "ibm.com"
   datacenter     = "${var.datacenter}"
-  private_vlan_id  = "${ibm_network_vlan.single_scaled_VLAN1.id}"
+  #private_vlan_id  = "${ibm_network_vlan.single_scaled_VLAN1.id}"
+  private_vlan_id = "582446"
   block_storage_ids = ["${ibm_storage_block.bs_single_scaled.id}"]
   file_storage_ids = ["${ibm_storage_file.fs_single_scaled.id}"]
   network_speed     = 10 
