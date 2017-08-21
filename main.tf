@@ -44,7 +44,7 @@ resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   file_storage_ids = ["${ibm_storage_file.fs_single_scaled.id}"]
   network_speed     = 10 
 #  ssh_key_ids    = ["${ibm_compute_ssh_key.single_scaled_key.id}"]
-  ssh_key_ids    = ${var.public_key}
+  ssh_key_ids    = "${var.public_key}"
   hourly_billing = true
   cores          = "1"
   memory         = "1024"
