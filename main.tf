@@ -10,10 +10,8 @@ resource "ibm_compute_ssh_key" "single_scaled_ssh_key" {
 
 # Declare an existing private VLAN
 resource "ibm_network_vlan" "single_scaled_VLAN1" {
-}
-
 # Import the VLAN configuration
-terraform import ibm_network_vlan.single_scaled_VLAN1 i-582446 {
+terraform import "ibm_network_vlan.single_scaled_VLAN1 i-582446" 
 }
 
 # Create file storage
