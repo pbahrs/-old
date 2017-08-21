@@ -1,9 +1,7 @@
 # Set privider to ibm cloud
 provider "ibm" {  
 }
-
-# Create an SSH key. The SSH key surfaces in the SoftLayer console under Devices > Manage > SSH Keys.
-
+# Create an SSH key.  
 resource "ibm_compute_ssh_key" "single_scaled_key" {
   label = "${var.key_label}"
   notes = "${var.key_note}"
@@ -17,8 +15,8 @@ resource "ibm_network_vlan" "single_scaled_VLAN1" {
    type = "PRIVATE"
    subnet_size = 8
 }
-# Create file storage
 
+# Create file storage
 resource "ibm_storage_file" "fs_single_scaled" {
         type = "Performance"
         datacenter = datacenter
@@ -27,7 +25,6 @@ resource "ibm_storage_file" "fs_single_scaled" {
 }
 
 #Create block storage
-
 resource "ibm_storage_block" "bs_single_scaled" {
         type = "Performance"
         datacenter = "${var.datacenter}"
@@ -36,8 +33,7 @@ resource "ibm_storage_block" "bs_single_scaled" {
         os_format_type = "Linux"
 }
 
-#Create VM
-
+#Create VM - connect to VLAN and mount block and file storage
 resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   count          = "${var.vm_count}"
   hostname       ="${format("single_scaled-%02d", count.index + 1)}"
@@ -57,7 +53,6 @@ resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
 }
 
 # Define variables 
-
 variable bxapikey {
   description = "Your Bluemix API Key."
 }
@@ -84,6 +79,5 @@ variable vm_count {
 }
 
 # Outputs
-
 output "ssh_key_id" {
   value = "${ibm_compute_ssh_key.ssh_key.id}"
