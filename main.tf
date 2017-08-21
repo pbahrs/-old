@@ -79,7 +79,7 @@ variable vm_count {
   description = "The number of VM instances to provision."
 }
 
-# Outputs
+Outputs
 #output "ssh_key_id" {
-#  value = "${ibm_compute_ssh_key.single_scaled_key.id}"
-#}
+  value = "${ibm_compute_ssh_key.single_scaled_key.id}"
+}
