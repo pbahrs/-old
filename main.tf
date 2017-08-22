@@ -1,6 +1,11 @@
-# Set privider to ibm cloud
-provider "ibm" {  
+
+# Set provider to IBM Cloud
+provider "ibm" {
+  bluemix_api_key = "${var.bxapikey}"
+  softlayer_username = "${var.slusername}"
+  softlayer_api_key = "${var.slapikey}"
 }
+
 # Create an SSH key.  
 resource "ibm_compute_ssh_key" "single_scaled_ssh_key" {
   label = "${var.key_label}"
@@ -20,8 +25,7 @@ resource "ibm_compute_ssh_key" "single_scaled_ssh_key" {
 #resource "ibm_network_vlan" "single_scaled_VLAN1" {
 #}
 
-
-# Create file storage
+# OPTIONAL Create file storage
 #resource "ibm_storage_file" "fs_single_scaled" {
 #        type = "Performance"
 #        datacenter = "${var.datacenter}"
