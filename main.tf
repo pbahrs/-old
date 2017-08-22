@@ -31,9 +31,10 @@ resource "ibm_compute_ssh_key" "single_scaled_ssh_key" {
 
 #Create block storage
 resource "ibm_storage_block" "bs_single_scaled1" {
-        type = "Endurance"
+        type = "Performance"
         datacenter = "${var.datacenter}"
         capacity = 20
+        iops = 100
         os_format_type = "Linux"
 }
 
