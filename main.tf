@@ -45,7 +45,7 @@ resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   datacenter     = "${var.datacenter}"
   #private_vlan_id  = "${ibm_network_vlan.single_scaled_VLAN1.id}"
   private_vlan_id = "${var.vlan_id}"
-  block_storage_ids = ["${ibm_storage_block.bs_single_scaled.id}"]
+  block_storage_ids = ["${ibm_storage_block.bs_single_scaled1.id}"]
 #  file_storage_ids = ["${ibm_storage_file.fs_single_scaled.id}"]
   network_speed     = 10 
   ssh_key_ids    = ["${ibm_compute_ssh_key.single_scaled_ssh_key.id}"]
