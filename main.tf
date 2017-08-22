@@ -8,28 +8,32 @@ resource "ibm_compute_ssh_key" "single_scaled_ssh_key" {
   public_key = "${var.public_key}"
 }
 
-# Declare an existing private VLAN
+# OPTIONAL Create a VLAN
+#resource "ibm_network_vlan" "privateVlan1" {
+#   name = "test_vlan"
+#   datacenter = "${var.datacenter}" 
+#   type = "PRIVATE"
+#   subnet_size = 8
+#}
+
+# OPTIONAL Declare an existing private VLAN 
 #resource "ibm_network_vlan" "single_scaled_VLAN1" {
 #}
 
-# Import the VLAN configuration
-#terraform import ibm_network_vlan.single_scaled_VLAN1 582446 {
-#}
 
 # Create file storage
-resource "ibm_storage_file" "fs_single_scaled" {
-        type = "Performance"
-        datacenter = "${var.datacenter}"
-        capacity = 20
-        iops = 100
-}
+#resource "ibm_storage_file" "fs_single_scaled" {
+#        type = "Performance"
+#        datacenter = "${var.datacenter}"
+#        capacity = 20
+#        iops = 100
+#}
 
 #Create block storage
-resource "ibm_storage_block" "bs_single_scaled" {
-        type = "Performance"
+resource "ibm_storage_block" "bs_single_scaled1" {
+        type = "Endurance"
         datacenter = "${var.datacenter}"
         capacity = 20
-        iops = 100
         os_format_type = "Linux"
 }
 
@@ -42,7 +46,7 @@ resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   #private_vlan_id  = "${ibm_network_vlan.single_scaled_VLAN1.id}"
   private_vlan_id = "${var.vlan_id}"
   block_storage_ids = ["${ibm_storage_block.bs_single_scaled.id}"]
-  file_storage_ids = ["${ibm_storage_file.fs_single_scaled.id}"]
+#  file_storage_ids = ["${ibm_storage_file.fs_single_scaled.id}"]
   network_speed     = 10 
   ssh_key_ids    = ["${ibm_compute_ssh_key.single_scaled_ssh_key.id}"]
   #ssh_key_ids    = "${var.public_key}" 
