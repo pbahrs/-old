@@ -1,98 +1,62 @@
-
-# Set provider to IBM Cloud
 provider "ibm" {
-  bluemix_api_key = "${var.bxapikey}"
-  softlayer_username = "${var.slusername}"
-  softlayer_api_key = "${var.slapikey}"
+   #softlayer_username = "FILL_IN_PLEASE"
+   #softlayer_api_key = "FILL_IN_PLEASE"
+   #bluemix_api_key = "FILL_IN_PLEASE"
 }
 
-# Create an SSH key.  
-resource "ibm_compute_ssh_key" "single_scaled_ssh_key" {
-  label = "${var.key_label}"
-  notes = "${var.key_note}"
-  public_key = "${var.public_key}"
+#Create file storage
+resource "ibm_storage_file" " fs_single_scaled " {
+  type = "Performance"
+  datacenter = “${var.datacenter}”
+  capacity = 20
+  iops = 100
+  hourly_billing = true
 }
 
-# OPTIONAL Create a VLAN
-#resource "ibm_network_vlan" "privateVlan1" {
-#   name = "test_vlan"
-#   datacenter = "${var.datacenter}" 
-#   type = "PRIVATE"
-#   subnet_size = 8
-#}
-
-# OPTIONAL Declare an existing private VLAN 
-#resource "ibm_network_vlan" "single_scaled_VLAN1" {
-#}
-
-# OPTIONAL Create file storage
-#resource "ibm_storage_file" "fs_single_scaled" {
-#        type = "Performance"
-#        datacenter = "${var.datacenter}"
-#        capacity = 20
-#        iops = 100
-#}
-
-#Create block storage
-resource "ibm_storage_block" "bs_single_scaled1" {
-        type = "Performance"
-        datacenter = "${var.datacenter}"
-        capacity = 20
-        iops = 100
-        os_format_type = "Linux"
-}
-
-#Create VM - connect to VLAN and mount block and file storage
+#Create multiple VMs
 resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   count          = "${var.vm_count}"
   hostname       ="${format("single_scaled-%02d", count.index + 1)}"
-  domain         = "ibm.com"
+  domain         =  “${var.domain}”
   datacenter     = "${var.datacenter}"
-  #private_vlan_id  = "${ibm_network_vlan.single_scaled_VLAN1.id}"
-  private_vlan_id = "${var.vlan_id}"
-  block_storage_ids = ["${ibm_storage_block.bs_single_scaled1.id}"]
-#  file_storage_ids = ["${ibm_storage_file.fs_single_scaled.id}"]
+  file_storage_ids = ["${ibm_storage_file.fs_single_scaled.id}"]
   network_speed     = 10 
-  ssh_key_ids    = ["${ibm_compute_ssh_key.single_scaled_ssh_key.id}"]
-  #ssh_key_ids    = "${var.public_key}" 
   hourly_billing = true
   cores          = "1"
   memory         = "1024"
-  disks          = ["25"]
+  disks          = "25"
   local_disk     = false
-  private_network_only = true
+  private_vlan_id = “${var.privatevlanid}”
+  public_vlan_id =  “${var.publicvlanid}”
 }
 
 # Define variables 
-variable bxapikey {
-  description = "Your Bluemix API Key."
-}
 variable slusername {
   description = "Your Softlayer username."
+  Default = “”
+}
+variable domain {
+  description = “domain of the VMs”
+  default = “"
 }
 variable slapikey {
   description = "Your Softlayer API Key."
+  default = ""
 }
+  default = “”
 variable datacenter {
   description = "The datacenter to create resources in."
-}
-variable public_key {
-  description = "Your public SSH key material."
-}
-variable key_label {
-  description = "A label for the SSH key that gets created."
-}
-variable key_note {
-  description = "A note for the SSH key that gets created."
+  default = “”
 }
 variable vm_count {
   description = "The number of VM instances to provision."
+  default = “”
 }
-variable vlan_id {
-  description = "The ID of an existing VLAN."
+variable privatevlanid {
+  description = "The ID of an existing private VLAN."
+  default = “”
 }
-
-#Outputs
-output "ssh_key_id" {
-  value = "${ibm_compute_ssh_key.single_scaled_ssh_key.id}"
+variable publicvlanid {
+  description = "The ID of an existing public VLAN."
+  default = “”
 }
