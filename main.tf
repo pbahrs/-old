@@ -68,5 +68,3 @@ description = "private VLAN"
 variable publicvlanid {
   description = "public VLAN"
 }
-
-output 
