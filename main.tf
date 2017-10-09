@@ -15,6 +15,7 @@ resource "ibm_storage_file" "fs_single_scaled" {
 #Create multiple VMs
 resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   count = "${var.vm_count}"
+  os_reference_code = "${VAR.osrefcode}"
   hostname = "${format("single_scaled-%02d", count.index + 1)}"
   domain = "${var.domain}"
   datacenter = "${var.datacenter}"
@@ -33,6 +34,9 @@ variable slusername {
 }
 variable slapikey {
   description = "sl api key"
+}
+variable osrefcode {
+  description = "operating system reference code for VMs"
 }
 variable datacenter {
   description = "location to deploy"
