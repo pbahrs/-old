@@ -37,18 +37,18 @@ variable slapikey {
   description = "sl api key"
 }
 variable datacenter {
-  description = ""
+  description = "location to deploy"
 }
 variable domain {
-  description = “domain of the VMs”
+  description = "domain of the VMs"
 }
 variable vm_count {
-  description = ""
+  description = "number of VMs"
 }
 variable privatevlanid {
-description = ""
+description = "private VLAN"
 }
 variable publicvlanid {
-  description = ""
+  description = "public VLAN"
 }
 
