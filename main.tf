@@ -15,7 +15,7 @@ resource "ibm_storage_file" "fs_single_scaled" {
 #Create multiple VMs
 resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   count = "${var.vm_count}"
-  os_reference_code = "${VAR.osrefcode}"
+  os_reference_code = "${var.osrefcode}"
   hostname = "${format("single_scaled-%02d", count.index + 1)}"
   domain = "${var.domain}"
   datacenter = "${var.datacenter}"
