@@ -8,9 +8,9 @@ provider "ibm" {
 resource "ibm_storage_file" "fs_single_scaled" {
   type = "Performance"
   datacenter = "${var.datacenter}"
-  capacity = 20
-  iops = 100
-  hourly_billing = true
+  capacity = "20"
+  iops = "100"
+  hourly_billing = "true"
 }
 
 #Create multiple VMs
