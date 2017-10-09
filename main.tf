@@ -3,7 +3,12 @@ provider "ibm" {
   softlayer_username = "${var.slusername}"
   softlayer_api_key = "${var.slapikey}"
 }
-
+#Create ssh keys for virtual guests
+resource "ibm_compute_ssh_key" "ssh_key" {
+    label = "${var.ssh_label}"
+    notes = "${var.ssh_notes}"
+    public_key = "${var.ssh_key}"
+}
 #Create file storage
 resource "ibm_storage_file" "CTU17_fs_single_scaled" {
   type = "Performance"
@@ -24,7 +29,7 @@ resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   cores = 1
   memory = 1024
   disks = [25, 10]
-  ssh_key_ids = ["${var.sshkeyid}"]
+#  ssh_key_ids = ["${ibm_compute_ssh_key.ssh_key.id}"]
   local_disk = false
   private_vlan_id = "${var.privatevlanid}"
   public_vlan_id = "${var.publicvlanid}"
@@ -36,8 +41,14 @@ variable slusername {
 variable slapikey {
   description = "sl api key"
 }
-variable sshkeyid {
+variable ssh_label {
+  description = "ssh label"
+}
+variable ssh_key {
   description = "ssh public key"
+}
+variable ssh_notes {
+  description = "ssh public key notes"
 }
 variable osrefcode {
   description = "operating system reference code for VMs"
@@ -58,3 +69,4 @@ variable publicvlanid {
   description = "public VLAN"
 }
 
+output 
