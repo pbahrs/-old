@@ -36,7 +36,7 @@ variable slusername {
 variable slapikey {
   description = "sl api key"
 }
-variable sshkeyid
+variable sshkeyid {
   description = "ssh public key"
 }
 variable osrefcode {
