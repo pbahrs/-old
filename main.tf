@@ -10,8 +10,6 @@ resource "ibm_storage_file" "fs_single_scaled" {
   datacenter = "${var.datacenter}"
   capacity = "20"
   iops = "100"
-  tags = ["CTU17"]
-  hourly_billing = true
 }
 
 #Create multiple VMs
@@ -22,8 +20,6 @@ resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   datacenter = "${var.datacenter}"
   file_storage_ids = ["${ibm_storage_file.fs_single_scaled.id}"]
   network_speed = 10
-  hourly_billing = true
-  tags = ["CTU17"]
   cores = 1
   memory = 1024
   disks = [25, 10]
