@@ -5,7 +5,7 @@ provider "ibm" {
 }
 
 #Create file storage
-resource "ibm_storage_file" "fs_single_scaled" {
+resource "ibm_storage_file" "CTU17_fs_single_scaled" {
   type = "Performance"
   datacenter = "${var.datacenter}"
   capacity = "20"
