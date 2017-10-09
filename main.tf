@@ -19,7 +19,7 @@ resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   hostname = "${format("CTU17-single-scaled-%02d", count.index + 1)}"
   domain = "${var.domain}"
   datacenter = "${var.datacenter}"
-  file_storage_ids = ["${ibm_storage_file.fs_single_scaled.id}"]
+  file_storage_ids = ["${ibm_storage_file.CTU17_fs_single_scaled.id}"]
   network_speed = 10
   cores = 1
   memory = 1024
