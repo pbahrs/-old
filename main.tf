@@ -10,7 +10,8 @@ resource "ibm_storage_file" "fs_single_scaled" {
   datacenter = "${var.datacenter}"
   capacity = "20"
   iops = "100"
-  hourly_billing = "true"
+  tags = ["CTU17"]
+  hourly_billing = true
 }
 
 #Create multiple VMs
@@ -20,11 +21,12 @@ resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   domain = "${var.domain}"
   datacenter = "${var.datacenter}"
   file_storage_ids = ["${ibm_storage_file.fs_single_scaled.id}"]
-  network_speed  = "10"
-  hourly_billing = "true"
-  cores = "1"
-  memory = "1024"
-  disks = "25, 10"
+  network_speed = 10
+  hourly_billing = true
+  tags = ["CTU17"]
+  cores = 1
+  memory = 1024
+  disks = [25, 10]
   local_disk = false
   private_vlan_id = "${var.privatevlanid}"
   public_vlan_id = "${var.publicvlanid}"
