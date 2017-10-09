@@ -16,7 +16,7 @@ resource "ibm_storage_file" " fs_single_scaled " {
 #Create multiple VMs
 resource "ibm_compute_vm_instance" "single_scaled_vm_instances" {
   count          = "${var.vm_count}"
-  hostname       ="${format("single_scaled-%02d", count.index + 1)}"
+  hostname       = "${format("single_scaled-%02d", count.index + 1)}"
   domain         =  “${var.domain}”
   datacenter     = "${var.datacenter}"
   file_storage_ids = ["${ibm_storage_file.fs_single_scaled.id}"]
@@ -45,7 +45,7 @@ variable slapikey {
 }
   default = “”
 variable datacenter {
-  description = "The datacenter to create resources in."
+  description = "The datacenter to create resources"
   default = “”
 }
 variable vm_count {
