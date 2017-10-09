@@ -36,14 +36,13 @@ variable slusername {
   Default = “”
 }
 variable domain {
-  description = “domain of the VMs”
+  description = “domain name”
   default = “"
 }
 variable slapikey {
   description = "Your Softlayer API Key."
   default = ""
 }
-  default = “”
 variable datacenter {
   description = "The datacenter to create resources"
   default = “”
